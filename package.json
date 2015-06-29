@@ -10,7 +10,8 @@
     "start": "ember server",
     "build": "ember build",
     "test": "node node_modules/mocha/bin/mocha  node-tests/**/*-test.js",
-    "autotest": "node node_modules/mocha/bin/mocha --watch --reporter spec node-tests/**/*-test.js"
+    "autotest": "node node_modules/mocha/bin/mocha --watch --reporter spec node-tests/**/*-test.js",
+    "integration-test": "node node_modules/mocha/bin/mocha  integration-tests/**/*-test.js"
   },
   "repository": "https://github.com/ember-cli/ember-cli-deploy",
   "engines": {
