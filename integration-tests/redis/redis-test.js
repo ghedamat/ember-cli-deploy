@@ -13,6 +13,8 @@ var resetRedis = function () {
     if (k.length > 0) {
       return client.del.apply(client, k);
     }
+  }).then(function() {
+    return client.del('ember-cli-deploy');
   });
 };
 
