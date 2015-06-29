@@ -1,5 +1,6 @@
 /* jshint expr:true */
 var CoreObject   = require('core-object');
+var path   = require('path');
 var RSVP   = require('rsvp');
 var resolve = RSVP.denodeify(require('resolve'));
 var fs = require('fs-extra');
@@ -12,7 +13,7 @@ module.exports = CoreObject.extend({
 
   changeTo: function() {
     var manager = this;
-    var packageFile = 'package.json'; // TOOD path?
+    var packageFile = path.join(manager.project.root, 'package.json');
     return npmHelpers.resetPackageFile(manager.project.root).then(function() {
       var packageJSON = JSON.parse(fs.readFileSync(packageFile));
       fs.writeFileSync(packageFile, JSON.stringify(manager._packageJSONForTest(packageJSON), null, 2));

@@ -45,8 +45,24 @@ var npmHelpers = require('../utils/npm-helpers.js');
 describe('fake', function() {
   it('fakes', function(done) {
     this.timeout(300 * 1000);
-    var manager = new DepsManager;
     var root = '/Users/tha/Dev/VAR/ember-cli-deploy';
+    var manager = new DepsManager({
+      project: {
+        root: root
+      }
+    });
+
+    npmHelpers.backupPackageFile(root)
+    .then(function() {
+      return manager.changeTo();
+    }).then(function() {
+      console.log('written');
+      expect(true).to.eq(true);
+      return npmHelpers.cleanup(root);
+    }).then(function() {
+      done();
+    });
+    /*
     npmHelpers.backupPackageFile(root)
     .then(function() {
       return npmHelpers.install(root);
@@ -59,6 +75,7 @@ describe('fake', function() {
     }).catch(function(err) {
       console.log(err);
     });
+    */
 
   });
 });
