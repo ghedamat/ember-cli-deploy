@@ -4,6 +4,8 @@ var syncExec = require('sync-exec');
 var expect = require('chai').expect;
 var DepsManager = require('../utils/deps-manager.js');
 var npmHelpers = require('../utils/npm-helpers.js');
+var run = require('../utils/run.js');
+
 //var redis = require('then-redis');
 //
 //var resetRedis = function () {
@@ -42,8 +44,20 @@ var npmHelpers = require('../utils/npm-helpers.js');
 //});
 //
 
-describe('fake', function() {
-  it('fakes', function() {
-    expect(true).to.eq(true);
-  });
+
+var root = '/Users/tha/Dev/VAR/ember-cli-deploy';
+var manager = new DepsManager({
+  project: {
+    root: root
+  }
+});
+
+npmHelpers.backupPackageFile(root)
+.then(function() {
+  return manager.changeTo();
+}).then(function() {
+  console.log('package json changed');
+  return run('npm', ['run-script', 'integration-tests'], {cwd: root});
+}).then(function() {
+  return npmHelpers.cleanup(root);
 });
