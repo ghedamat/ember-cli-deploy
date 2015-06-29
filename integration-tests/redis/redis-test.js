@@ -28,11 +28,12 @@ var verifyUpload = function () {
 
 describe('uploading the index', function () {
   it('stores the index in redis', function (done) {
-    this.timeout(30 * 1000);
+    this.timeout(300 * 1000);
     resetRedis().then(function () {
+      var buildCommand = syncExec('ember build --environment=production');
       var config = '--deploy-config-file node-tests/fixtures/config/ember-deploy-redis.js';
-      var command = "LOAD_ADAPTERS=ember-deploy-redis EMBER_VERBOSE_ERRORS=true " +
-        "ember deploy " + config + " --environment test";
+      var command = "EMBER_VERBOSE_ERRORS=true " +
+        "ember deploy " + config + " --environment=production";
       var commandResult = syncExec(command);
       expect(commandResult.stderr).to.equal('');
 

@@ -1,5 +1,5 @@
 module.exports = {
-  "test": {
+  "production": {
     "store": {
       "type": "redis",
       "host": "localhost",
