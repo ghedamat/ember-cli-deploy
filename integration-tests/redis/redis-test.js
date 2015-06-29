@@ -10,7 +10,9 @@ var resetRedis = function () {
   var client = redis.createClient({ host: 'localhost', port: 6379 });
 
   return client.lrange('ember-cli-deploy', 0, 10).then(function (k) {
-    return client.del.apply(client, k);
+    if (k.length > 0) {
+      return client.del.apply(client, k);
+    }
   });
 };
 
